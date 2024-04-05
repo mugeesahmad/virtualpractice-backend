@@ -1,15 +1,14 @@
-import {
-  ArrayNotEmpty,
-  IsArray,
-  IsDefined,
-  IsOptional,
-  IsString,
-  Matches,
-} from 'class-validator';
+import { ArrayNotEmpty, IsArray, IsDefined, IsEnum, IsOptional, IsString, Matches } from 'class-validator';
+
+enum AccountType {
+  student = 'student',
+  contributor = 'contributor',
+  moderator = 'moderator',
+}
 
 export class CreateUserDto {
   @IsDefined()
-  @Matches(/^[A-Z][A-Z0-9_]{3,19}/i, {
+  @Matches(/^[A-Z][A-Z0-9_]{3,}/i, {
     message: `'username' must start with an alphabet, atleast have 4 characters, and can only consist of alphabets, numbers and _ (underscore)!`,
   })
   username: string;
@@ -27,4 +26,8 @@ export class CreateUserDto {
   @ArrayNotEmpty()
   @IsString({ each: true })
   majorSubjects: string[];
+
+  @IsOptional()
+  @IsEnum(AccountType)
+  accountType: AccountType;
 }

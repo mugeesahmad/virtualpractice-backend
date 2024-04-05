@@ -1,9 +1,4 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { UsersModule } from 'src/users/users.module';
 import { AuthController } from './controllers/auth/auth.controller';
 import { AuthService } from './services/auth/auth.service';
@@ -14,10 +9,7 @@ import { ValidateLoginMiddleware } from './middlewares/validate-login/validate-l
 import { ForwardAuthenticatedMiddleware } from './middlewares/forward-authenticated/forward-authenticated.middleware';
 
 @Module({
-  imports: [
-    PassportModule.register({ session: true, defaultStrategy: 'local' }),
-    UsersModule,
-  ],
+  imports: [PassportModule.register({ session: true, defaultStrategy: 'local' }), UsersModule],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, SessionSerializer],
 })

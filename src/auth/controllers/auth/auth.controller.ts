@@ -21,18 +21,12 @@ export class AuthController {
 
   @Post('register')
   async createUser(@Body() createUserDto: CreateUserDto) {
-    const alreadyExists = await this.authService.checkIfExists(
-      createUserDto.username,
-    );
+    const alreadyExists = await this.authService.checkIfExists(createUserDto.username);
     if (alreadyExists)
-      throw new BadRequestException(
-        `User with the username '${createUserDto.username}' already exists!`,
-      );
+      throw new BadRequestException(`User with the username '${createUserDto.username}' already exists!`);
 
     // Hashes the password before saving it into the database
-    createUserDto.password = await this.authService.hashPassword(
-      createUserDto.password,
-    );
+    createUserDto.password = await this.authService.hashPassword(createUserDto.password);
 
     const user = await this.authService.createUser(createUserDto);
     delete user.password;

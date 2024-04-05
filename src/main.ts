@@ -27,7 +27,7 @@ const sessionStore = new SequelizeStore({
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({ stopAtFirstError: true }));
+  app.useGlobalPipes(new ValidationPipe({ stopAtFirstError: true, whitelist: true }));
   app.use(
     session({
       secret: process.env.APP_SECRET || 'secret',
@@ -35,6 +35,7 @@ async function bootstrap() {
       resave: false,
       rolling: true,
       store: sessionStore,
+      cookie: { maxAge: 1000 * 60 * 60 },
     }),
   );
   app.use(passport.initialize());

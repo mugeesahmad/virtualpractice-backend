@@ -11,10 +11,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
   async validate(username: string, password: string) {
     const user = await this.authService.validateUser(username, password);
-    if (user === null)
-      throw new UnauthorizedException(
-        `No user found with the username '${username}'!`,
-      );
+    if (user === null) throw new UnauthorizedException(`No user found with the username '${username}'!`);
     if (!user) throw new UnauthorizedException(`Wrong credentials!`);
 
     return user;

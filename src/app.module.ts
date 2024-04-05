@@ -5,6 +5,8 @@ import { UsersModule } from './users/users.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UserModel } from './users/models/user.model';
 import { AuthModule } from './auth/auth.module';
+import { QuizModule } from './quiz/quiz.module';
+import { QuizModel } from './quiz/models/quiz.model';
 
 @Module({
   imports: [
@@ -16,12 +18,13 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       autoLoadModels: true,
-      models: [UserModel],
+      models: [UserModel, QuizModel],
       sync: { alter: true, force: false },
       logging: false,
     }),
     UsersModule,
     AuthModule,
+    QuizModule,
   ],
   controllers: [AppController],
   providers: [AppService],

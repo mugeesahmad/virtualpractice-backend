@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NestMiddleware,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, NestMiddleware } from '@nestjs/common';
 import { validateOrReject } from 'class-validator';
 import { NextFunction } from 'express';
 import { LoginUserDto } from '../../dtos/login-user.dto';
